@@ -39,7 +39,7 @@ if (isset($_REQUEST['low'])) {
 <div class="content">
     <?php
     if (isset($_SESSION['mid'])) {
-        echo "Secret number is <br>" . $_SESSION['mid'];
+        echo "Secret number is <br>" . $_SESSION['numbers'][$_SESSION['mid']];
     }
     ?>
     <form method="post" action="round2.php">
