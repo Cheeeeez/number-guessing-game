@@ -15,7 +15,7 @@
 <body>
 <div class="content">
     <h1>Think of a random number between 1 and 100 and remember it! <a class="btn btn-primary"
-                                                                       href='round1.php'>Play</a></h1>;
+                                                                       href='round1.php'>Play</a></h1>
 </div>
 
 </body>
