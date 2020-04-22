@@ -1,22 +1,33 @@
 <?php
 session_start();
+include_once "Function.php";
 if (empty($_SESSION['numbers']) && empty($_SESSION['left']) && empty($_SESSION['right']) && empty($_SESSION['mid'])) {
     $_SESSION['numbers'] = range(1, 100);
-    $_SESSION['left'] = 0;
-    $_SESSION['right'] = count($_SESSION['numbers']) - 1;
-    $_SESSION['mid'] = floor(($_SESSION['left'] + $_SESSION['right']) / 2);
+    setLeftMidRight();
+} else {
+    if (isset($_REQUEST['low'])) {
+        {
+            array_splice($_SESSION['numbers'], $_SESSION['left'], $_SESSION['mid'] + 1);
+            setLeftMidRight();
+            if (empty($_SESSION['numbers'])) {
+                resetGame();
+            }
+        }
+//    $_SESSION['left'] = $_SESSION['mid'] + 1;
+//    $_SESSION['mid'] = floor(($_SESSION['left'] + $_SESSION['right']) / 2);
+    } elseif (isset($_REQUEST['high'])) {
+        array_splice($_SESSION['numbers'], $_SESSION['mid']);
+        setLeftMidRight();
+        if (empty($_SESSION['numbers'])) {
+            resetGame();
+        }
+//        $_SESSION['right'] = $_SESSION['mid'] - 1;
+//        $_SESSION['mid'] = floor(($_SESSION['left'] + $_SESSION['right']) / 2);
+    } elseif (isset($_REQUEST['end'])) {
+        resetGame();
+    }
 }
 
-if (isset($_REQUEST['low'])) {
-    $_SESSION['left'] = $_SESSION['mid'] + 1;
-    $_SESSION['mid'] = floor(($_SESSION['left'] + $_SESSION['right']) / 2);
-} elseif (isset($_REQUEST['high'])) {
-    $_SESSION['right'] = $_SESSION['mid'] - 1;
-    $_SESSION['mid'] = floor(($_SESSION['left'] + $_SESSION['right']) / 2);
-} elseif (isset($_REQUEST['end'])) {
-    session_destroy();
-    header('location: index.php');
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -45,8 +56,10 @@ if (isset($_REQUEST['low'])) {
 <body>
 <div class="content">
     <?php
-    if (isset($_SESSION['mid'])) {
+    if (isset($_SESSION['mid']) && empty($message)) {
         echo "Secret number is <br>" . $_SESSION['numbers'][$_SESSION['mid']];
+    } else {
+        echo $message;
     }
     ?>
     <form method="post" action="">
