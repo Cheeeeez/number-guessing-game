@@ -1,9 +1,11 @@
 <?php
 session_start();
-$_SESSION['numbers'] = range(1, 100);
-$_SESSION['left'] = 0;
-$_SESSION['right'] = count($_SESSION['numbers']) - 1;
-$_SESSION['mid'] = floor(($_SESSION['left'] + $_SESSION['right']) / 2);
+if (empty($_SESSION['numbers']) && empty($_SESSION['left']) && empty($_SESSION['right']) && empty($_SESSION['mid'])) {
+    $_SESSION['numbers'] = range(1, 100);
+    $_SESSION['left'] = 0;
+    $_SESSION['right'] = count($_SESSION['numbers']) - 1;
+    $_SESSION['mid'] = floor(($_SESSION['left'] + $_SESSION['right']) / 2);
+}
 
 if (isset($_REQUEST['low'])) {
     $_SESSION['left'] = $_SESSION['mid'] + 1;
@@ -47,7 +49,7 @@ if (isset($_REQUEST['low'])) {
         echo "Secret number is <br>" . $_SESSION['numbers'][$_SESSION['mid']];
     }
     ?>
-    <form method="post" action="round2.php">
+    <form method="post" action="">
         <input class="btn btn-danger" type="submit" value="Too low" name="low">
         <input class="btn btn-warning" type="submit" value="Too high" name="high">
         <input class="btn btn-success" type="submit" value="Exactly" name="end">
