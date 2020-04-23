@@ -56,10 +56,8 @@ if (empty($_SESSION['numbers'])) {
 <body>
 <div class="content">
     <?php
-    if (isset($_SESSION['mid']) && empty($message)) {
+    if (!empty($_SESSION['numbers'])) {
         echo "Secret number is <br>" . $_SESSION['numbers'][$_SESSION['mid']];
-    } else {
-        echo $message;
     }
     ?>
     <form method="post" action="">
