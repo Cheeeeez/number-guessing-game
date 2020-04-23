@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "Function.php";
-if (empty($_SESSION['numbers']) && empty($_SESSION['left']) && empty($_SESSION['right']) && empty($_SESSION['mid'])) {
+if (empty($_SESSION['numbers'])) {
     $_SESSION['numbers'] = range(1, 100);
     setLeftMidRight();
 } else {
